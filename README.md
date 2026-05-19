@@ -1,36 +1,83 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# ICA Comercial
 
-## Getting Started
+CRM comercial com autenticação por CPF + PIN, backend Supabase e deploy na Vercel.
 
-First, run the development server:
+## Stack
+
+- **Frontend/API:** Next.js 16 (App Router)
+- **Banco:** Supabase (PostgreSQL)
+- **Arquivos:** Supabase Storage (bucket `documents`)
+- **Hospedagem:** Vercel
+
+## Configuração local
+
+### 1. Supabase
+
+1. Crie um projeto em [supabase.com](https://supabase.com)
+2. No **SQL Editor**, execute o arquivo `supabase/schema.sql`
+3. Em **Storage**, crie um bucket privado chamado `documents`
+4. Copie URL e chaves em **Project Settings → API**
+
+### 2. Variáveis de ambiente
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+cp .env.local.example .env.local
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Preencha:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```env
+NEXT_PUBLIC_SUPABASE_URL=https://xxxx.supabase.co
+NEXT_PUBLIC_SUPABASE_ANON_KEY=eyJ...
+SUPABASE_SERVICE_ROLE_KEY=eyJ...
+AUTH_SECRET=uma_string_aleatoria_longa
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Gere `AUTH_SECRET` com: `openssl rand -base64 32`
 
-## Learn More
+### 3. Rodar
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+npm install
+npm run dev
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Acesse [http://localhost:3000](http://localhost:3000)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### Usuários de teste (após o seed SQL)
 
-## Deploy on Vercel
+| CPF | Nome | Perfil |
+|-----|------|--------|
+| 101.920.726-41 | Gabriel | Head de Growth |
+| 126.655.956-64 | Isabella | TI/Admin |
+| 157.618.026-35 | Lana | Encantadora |
+| 823.960.786-15 | Evaristo | CEO (somente leitura) |
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+No **Primeiro acesso**, cadastre um PIN de 6 dígitos (ex.: `147258`).
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Deploy na Vercel
+
+1. Envie o repositório para GitHub
+2. Importe o projeto na [Vercel](https://vercel.com) — pasta raiz: `ica-comercial`
+3. Adicione as mesmas variáveis de ambiente do `.env.local`
+4. Deploy
+
+## Funcionalidades
+
+- Login com CPF + PIN (hash bcrypt no servidor)
+- Dashboard com métricas calculadas dos cards
+- CRM Kanban (3 pipelines) com movimentação de etapas e histórico
+- Tarefas, orçamentos (tabelas LUX/CAC), documentos, e-mails, mensagens
+- Solicitações de aprovação (perfil Lana → Growth/TI)
+- Permissões por perfil (CEO somente visualização)
+
+## Estrutura
+
+```
+src/
+  app/           # páginas e API routes
+  components/    # UI (AppShell, Login)
+  lib/           # auth, supabase, permissões, preços
+supabase/
+  schema.sql     # schema + seed
+```
