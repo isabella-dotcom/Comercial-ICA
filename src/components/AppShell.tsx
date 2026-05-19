@@ -41,38 +41,38 @@ type Section =
 type PipelineSlug = "pacientes" | "medicos" | "parceiros";
 
 const NAV: { id: Section; label: string }[] = [
-  { id: "dashboard", label: "â–£ Dashboard" },
-  { id: "crm", label: "â–¦ CRM" },
-  { id: "tarefas", label: "âœ“ Tarefas" },
-  { id: "orcamentos", label: "R$ OrÃ§amentos" },
-  { id: "documentos", label: "â–¤ Documentos" },
-  { id: "emails", label: "âœ‰ E-mails" },
-  { id: "mensagens", label: "â—Œ Mensagens" },
-  { id: "solicitacoes", label: "âš  SolicitaÃ§Ãµes" },
-  { id: "configuracoes", label: "âš™ ConfiguraÃ§Ãµes" },
-  { id: "usuarios", label: "â—‰ UsuÃ¡rios" },
+  { id: "dashboard", label: "▣ Dashboard" },
+  { id: "crm", label: "▦ CRM" },
+  { id: "tarefas", label: "✓ Tarefas" },
+  { id: "orcamentos", label: "R$ Orçamentos" },
+  { id: "documentos", label: "▤ Documentos" },
+  { id: "emails", label: "✉ E-mails" },
+  { id: "mensagens", label: "◌ Mensagens" },
+  { id: "solicitacoes", label: "⚠ Solicitações" },
+  { id: "configuracoes", label: "⚙ Configurações" },
+  { id: "usuarios", label: "◉ Usuários" },
 ];
 
 const PAGE_META: Record<Section, { title: string; subtitle: string }> = {
   dashboard: {
     title: "Dashboard",
-    subtitle: "VisÃ£o executiva do desempenho comercial.",
+    subtitle: "Visão executiva do desempenho comercial.",
   },
-  crm: { title: "CRM", subtitle: "Funis de pacientes, mÃ©dicos e parceiros." },
+  crm: { title: "CRM", subtitle: "Funis de pacientes, médicos e parceiros." },
   tarefas: { title: "Tarefas", subtitle: "Agenda operacional e follow-ups." },
-  orcamentos: { title: "OrÃ§amentos", subtitle: "Tabelas LUX e CAC com cÃ¡lculo automÃ¡tico." },
+  orcamentos: { title: "Orçamentos", subtitle: "Tabelas LUX e CAC com cálculo automático." },
   documentos: { title: "Documentos", subtitle: "Upload e biblioteca por card." },
   emails: { title: "E-mails", subtitle: "Registro de envios vinculados ao card." },
   mensagens: { title: "Mensagens", subtitle: "Conversas por canal e card." },
   solicitacoes: {
-    title: "SolicitaÃ§Ãµes",
-    subtitle: "AprovaÃ§Ãµes de aÃ§Ãµes restritas.",
+    title: "Solicitações",
+    subtitle: "Aprovações de ações restritas.",
   },
   configuracoes: {
-    title: "ConfiguraÃ§Ãµes",
-    subtitle: "AdministraÃ§Ã£o comercial e integraÃ§Ãµes.",
+    title: "Configurações",
+    subtitle: "Administração comercial e integrações.",
   },
-  usuarios: { title: "UsuÃ¡rios", subtitle: "Perfis e permissÃµes do sistema." },
+  usuarios: { title: "Usuários", subtitle: "Perfis e permissões do sistema." },
 };
 
 const PERMISSION_BLURBS: Record<
@@ -86,7 +86,7 @@ const PERMISSION_BLURBS: Record<
       "Gerencia funis",
       "Motivos de perda/ganho",
       "Exclui leads",
-      "Aprova solicitaÃ§Ãµes",
+      "Aprova solicitações",
     ],
   },
   lana: {
@@ -95,8 +95,8 @@ const PERMISSION_BLURBS: Record<
     items: [
       "Cria cards",
       "Registra contatos",
-      "NÃ£o exclui nada",
-      "AÃ§Ãµes restritas viram solicitaÃ§Ã£o",
+      "Não exclui nada",
+      "Ações restritas viram solicitação",
     ],
   },
   ti: {
@@ -104,9 +104,9 @@ const PERMISSION_BLURBS: Record<
     tagClass: "success",
     items: [
       "Acesso total",
-      "UsuÃ¡rios e permissÃµes",
+      "Usuários e permissões",
       "Cards retroativos",
-      "IntegraÃ§Ãµes",
+      "Integrações",
     ],
   },
   ceo: {
@@ -115,8 +115,8 @@ const PERMISSION_BLURBS: Record<
     items: [
       "Apenas visualiza",
       "Dashboard",
-      "Cards e relatÃ³rios",
-      "Sem ediÃ§Ã£o",
+      "Cards e relatórios",
+      "Sem edição",
     ],
   },
 };
@@ -161,7 +161,7 @@ export function AppShell() {
   const [moveNote, setMoveNote] = useState("");
 
   const [taskForm, setTaskForm] = useState({
-    taskType: "LigaÃ§Ã£o",
+    taskType: "Ligação",
     cardId: "",
     taskDate: new Date().toISOString().slice(0, 10),
     taskTime: "",
@@ -182,8 +182,8 @@ export function AppShell() {
   const [emailForm, setEmailForm] = useState({
     cardId: "",
     recipient: "",
-    theme: "OrÃ§amento",
-    subject: "OrÃ§amento ICA",
+    theme: "Orçamento",
+    subject: "Orçamento ICA",
     body: "Olá, segue orçamento conforme solicitado.",
   });
 
@@ -263,7 +263,7 @@ export function AppShell() {
       return;
     }
     if (!check.allowed) {
-      setActionMsg(check.message || "Sem permissÃ£o.");
+      setActionMsg(check.message || "Sem permissão.");
       return;
     }
     onAllowed();
@@ -285,7 +285,7 @@ export function AppShell() {
       const json = await res.json();
       if (!res.ok) throw new Error(json.error || "Falha ao enviar");
       setRequestModalOpen(false);
-      setActionMsg("SolicitaÃ§Ã£o enviada ao Head de Growth.");
+      setActionMsg("Solicitação enviada ao Head de Growth.");
       await refresh();
     } catch (e) {
       setActionMsg(e instanceof Error ? e.message : "Erro");
@@ -512,7 +512,7 @@ export function AppShell() {
           <div className="content">
             <div className="card">
               <h3>Erro ao carregar</h3>
-              <p>{error || "Dados indisponÃ­veis"}</p>
+              <p>{error || "Dados indisponíveis"}</p>
               <button type="button" className="btn primary" onClick={refresh}>
                 Tentar novamente
               </button>
@@ -536,10 +536,10 @@ export function AppShell() {
           <div className="brand-mark">ICA</div>
           <div>
             <h1>ICA Comercial</h1>
-            <small>CRM + Growth + OperaÃ§Ã£o</small>
+            <small>CRM + Growth + Operação</small>
           </div>
         </div>
-        <div className="nav-label">NavegaÃ§Ã£o</div>
+        <div className="nav-label">Navegação</div>
         {NAV.map((item) => (
           <button
             key={item.id}
@@ -551,9 +551,9 @@ export function AppShell() {
           </button>
         ))}
         <div className="sidebar-card">
-          <strong>SessÃ£o ativa</strong>
+          <strong>Sessão ativa</strong>
           <p>
-            {data.user.name} Â· {data.user.label}
+            {data.user.name} · {data.user.label}
           </p>
         </div>
       </aside>
@@ -565,7 +565,7 @@ export function AppShell() {
             <p>{meta.subtitle}</p>
           </div>
           <div className="top-actions">
-            <div className="session-pill" title="UsuÃ¡rio logado">
+            <div className="session-pill" title="Usuário logado">
               <div className="session-avatar">{initials(data.user.name)}</div>
               <div>
                 <strong>{data.user.name}</strong>
@@ -611,12 +611,12 @@ export function AppShell() {
               <div className="card metric danger">
                 <span>% quantidade de perda</span>
                 <h3>{data.dashboard.lossRate}%</h3>
-                <p>Perdas e declÃ­nios fechados.</p>
+                <p>Perdas e declínios fechados.</p>
               </div>
               <div className="card metric primary">
                 <span>Cards em andamento</span>
                 <h3>{data.dashboard.inProgress}</h3>
-                <p>NegociaÃ§Ãµes ainda ativas.</p>
+                <p>Negociações ainda ativas.</p>
               </div>
               <div className="card metric warning">
                 <span>Valor acumulado</span>
@@ -629,7 +629,7 @@ export function AppShell() {
               <div className="card-title">
                 <div>
                   <h3>Cards recentes</h3>
-                  <p>Ãšltimas movimentaÃ§Ãµes comerciais.</p>
+                  <p>Últimas movimentações comerciais.</p>
                 </div>
               </div>
               <div className="table-wrap">
@@ -674,7 +674,7 @@ export function AppShell() {
                 {(
                   [
                     ["pacientes", "Pacientes"],
-                    ["medicos", "MÃ©dicos prescritores"],
+                    ["medicos", "Médicos prescritores"],
                     ["parceiros", "Parceiros"],
                   ] as const
                 ).map(([slug, label]) => (
@@ -766,7 +766,7 @@ export function AppShell() {
                         <th>Data</th>
                         <th>Horário</th>
                         <th>Tipo</th>
-                        <th>ResponsÃ¡vel</th>
+                        <th>Responsável</th>
                         <th>Status</th>
                         <th>Card</th>
                       </tr>
@@ -820,9 +820,9 @@ export function AppShell() {
                         }))
                       }
                     >
-                      <option>LigaÃ§Ã£o</option>
-                      <option>CaptaÃ§Ã£o</option>
-                      <option>ReuniÃ£o</option>
+                      <option>Ligação</option>
+                      <option>Captação</option>
+                      <option>Reunião</option>
                     </select>
                   </div>
                   <div className="field">
@@ -887,12 +887,6 @@ export function AppShell() {
                     <p>Unidade → tabela → modalidade → procedimento.</p>
                   </div>
                 </div>
-                {budgetProcedures.length === 0 ? (
-                  <div className="notice warning" style={{ marginBottom: 12 }}>
-                    Tabela de preços não carregada. Execute{" "}
-                    <code>supabase/seed-prices.sql</code> no Supabase.
-                  </div>
-                ) : null}
                 <div className="form-grid">
                   <div className="field full">
                     <label>Card*</label>
@@ -917,10 +911,10 @@ export function AppShell() {
                       }
                     >
                       <option value="lux">
-                        {priceCatalog.lux?.name ?? "LUX — Hospital Luxemburgo"}
+                        {priceCatalog.lux?.name ?? "Hospital Luxemburgo (LUX BH)"}
                       </option>
                       <option value="cac">
-                        {priceCatalog.cac?.name ?? "CAC — Hospital Bom Samaritano"}
+                        {priceCatalog.cac?.name ?? "Hospital Bom Samaritano (CAC GV)"}
                       </option>
                     </select>
                   </div>
@@ -945,7 +939,7 @@ export function AppShell() {
                         setBudgetMode(e.target.value as PaymentMode)
                       }
                     >
-                      <option value="avista">Ã€ vista</option>
+                      <option value="avista">À vista</option>
                       <option value="parcelado">Parcelado</option>
                     </select>
                   </div>
@@ -976,13 +970,13 @@ export function AppShell() {
                     runGuarded("Criar orçamento", saveBudget)
                   }
                 >
-                  Salvar prÃ©-montado
+                  Salvar pré-montado
                 </button>
               </div>
               <div className="card">
                 <div className="card-title">
                   <div>
-                    <h3>PrÃ©-montados</h3>
+                    <h3>Pré-montados</h3>
                   </div>
                 </div>
                 <div className="table-wrap">
@@ -1057,7 +1051,7 @@ export function AppShell() {
                       onChange={(e) => setDocFolder(e.target.value)}
                     >
                       <option>Pacientes</option>
-                      <option>MÃ©dicos</option>
+                      <option>Médicos</option>
                       <option>Parceiros</option>
                     </select>
                   </div>
@@ -1084,7 +1078,7 @@ export function AppShell() {
                     <div key={d.id} className="timeline-item">
                       <strong>{d.file_name}</strong>
                       <span>
-                        {d.card?.code || "—"} Â·{" "}
+                        {d.card?.code || "—"} ·{" "}
                         {formatDateTimeBR(d.created_at)}
                       </span>
                     </div>
@@ -1102,7 +1096,7 @@ export function AppShell() {
               <div className="card">
                 <div className="form-grid">
                   <div className="field">
-                    <label>DestinatÃ¡rio</label>
+                    <label>Destinatário</label>
                     <input
                       value={emailForm.recipient}
                       onChange={(e) =>
@@ -1174,7 +1168,7 @@ export function AppShell() {
                     <div key={em.id} className="timeline-item">
                       <strong>{em.subject || em.theme}</strong>
                       <span>
-                        {em.card?.code || "—"} Â·{" "}
+                        {em.card?.code || "—"} ·{" "}
                         {formatDateTimeBR(em.created_at)}
                       </span>
                     </div>
@@ -1201,7 +1195,7 @@ export function AppShell() {
                   >
                     <strong>{c.card?.name || "Card"}</strong>
                     <span>
-                      {c.card?.code} Â· {c.channel || "Canal"}
+                      {c.card?.code} · {c.channel || "Canal"}
                     </span>
                   </button>
                 ))}
@@ -1220,7 +1214,7 @@ export function AppShell() {
                     >
                       {m.body}
                       <small>
-                        {formatDateTimeBR(m.created_at)} Â·{" "}
+                        {formatDateTimeBR(m.created_at)} ·{" "}
                         {m.sent_by?.name || m.sender_type}
                       </small>
                     </div>
@@ -1261,7 +1255,7 @@ export function AppShell() {
                       <th>Card</th>
                       <th>Justificativa</th>
                       <th>Data</th>
-                      <th>AÃ§Ã£o</th>
+                      <th>Ação</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -1314,17 +1308,17 @@ export function AppShell() {
                   <details open>
                     <summary>Pipelines e colunas</summary>
                     <div>
-                      Gerenciar Pacientes, MÃ©dicos Prescritores e Parceiros.
+                      Gerenciar Pacientes, Médicos Prescritores e Parceiros.
                     </div>
                   </details>
                   <details>
                     <summary>Motivos de perda e ganho</summary>
                     <div>
-                      Configurar campos obrigatÃ³rios por etapa.
+                      Configurar campos obrigatórios por etapa.
                     </div>
                   </details>
                   <details>
-                    <summary>Tabelas de preÃ§o</summary>
+                    <summary>Tabelas de preço</summary>
                     <div>LUX BH e CAC GV.</div>
                   </details>
                 </div>
@@ -1333,11 +1327,11 @@ export function AppShell() {
                 <div className="accordion">
                   <details open>
                     <summary>Google Agenda</summary>
-                    <div>Eventos a partir de tarefas com data e horÃ¡rio.</div>
+                    <div>Eventos a partir de tarefas com data e horário.</div>
                   </details>
                   <details>
                     <summary>Duotalk</summary>
-                    <div>Webhooks e criaÃ§Ã£o automÃ¡tica de cards.</div>
+                    <div>Webhooks e criação automática de cards.</div>
                   </details>
                 </div>
               </div>
@@ -1386,7 +1380,7 @@ export function AppShell() {
                   {selectedCard.code} — {selectedCard.name}
                 </h2>
                 <p>
-                  {selectedCard.stage} Â· {selectedCard.unit} Â·{" "}
+                  {selectedCard.stage} · {selectedCard.unit} ·{" "}
                   {selectedCard.active_label}
                 </p>
               </div>
@@ -1395,7 +1389,7 @@ export function AppShell() {
                 className="close-btn"
                 onClick={closeDrawer}
               >
-                Ã—
+                ×
               </button>
             </div>
             <div className="drawer-body">
@@ -1412,7 +1406,7 @@ export function AppShell() {
                   className={`drawer-tab${drawerTab === "historico" ? " active" : ""}`}
                   onClick={() => setDrawerTab("historico")}
                 >
-                  HistÃ³rico
+                  Histórico
                 </button>
               </div>
               <div
@@ -1458,7 +1452,7 @@ export function AppShell() {
                       runGuarded("Excluir card", () => {
                         if (
                           !confirm(
-                            "Confirma a exclusÃ£o permanente deste card?"
+                            "Confirma a exclusão permanente deste card?"
                           )
                         )
                           return;
@@ -1499,14 +1493,14 @@ export function AppShell() {
                 className={`drawer-panel${drawerTab === "historico" ? " active" : ""}`}
               >
                 {historyLoading ? (
-                  <p>Carregando histÃ³rico...</p>
+                  <p>Carregando histórico...</p>
                 ) : (
                   <div className="timeline">
                     {cardHistory.map((h) => (
                       <div key={h.id} className="timeline-item">
                         <strong>{h.action}</strong>
                         <span>
-                          {h.user?.name || "Sistema"} Â·{" "}
+                          {h.user?.name || "Sistema"} ·{" "}
                           {formatDateTimeBR(h.created_at)}
                         </span>
                       </div>
@@ -1534,7 +1528,7 @@ export function AppShell() {
           <h3>Mover card de etapa</h3>
           <div className="form-grid">
             <div className="field">
-              <label>PrÃ³xima etapa</label>
+              <label>Próxima etapa</label>
               <select
                 value={moveStage}
                 onChange={(e) => setMoveStage(e.target.value)}
@@ -1553,12 +1547,12 @@ export function AppShell() {
                 onChange={(e) => setMoveChannel(e.target.value)}
               >
                 <option>WhatsApp</option>
-                <option>LigaÃ§Ã£o</option>
+                <option>Ligação</option>
                 <option>E-mail</option>
               </select>
             </div>
             <div className="field full">
-              <label>ObservaÃ§Ã£o</label>
+              <label>Observação</label>
               <textarea
                 value={moveNote}
                 onChange={(e) => setMoveNote(e.target.value)}
@@ -1617,7 +1611,7 @@ export function AppShell() {
 
       {requestModalOpen ? (
         <div className="modal open">
-          <h3>AÃ§Ã£o restrita</h3>
+          <h3>Ação restrita</h3>
           <p>{pendingAction}</p>
           <div className="field">
             <label>Justificativa*</label>
@@ -1633,7 +1627,7 @@ export function AppShell() {
               disabled={submitting}
               onClick={submitRequest}
             >
-              Enviar solicitaÃ§Ã£o
+              Enviar solicitação
             </button>
             <button
               type="button"
