@@ -28,7 +28,8 @@ export async function middleware(request: NextRequest) {
     }
   }
 
-  if (!valid && !isPublic && pathname.startsWith("/api/auth")) {
+  // Rotas públicas (login, primeiro acesso) devem passar sem sessão
+  if (isPublic) {
     return NextResponse.next();
   }
 
