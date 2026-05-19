@@ -893,14 +893,6 @@
       "tuss": null,
       "requires_quote": true,
       "prices": {}
-    },
-    {
-      "name": "*Observação: Os valores dos procedimentos não incluem diárias de CTI e nem de internação",
-      "synonyms": null,
-      "sigtap": null,
-      "tuss": null,
-      "requires_quote": false,
-      "prices": {}
     }
   ]
 }

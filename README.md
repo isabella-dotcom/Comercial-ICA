@@ -14,10 +14,9 @@ CRM comercial com autenticação por CPF + PIN, backend Supabase e deploy na Ver
 ### 1. Supabase
 
 1. Crie um projeto em [supabase.com](https://supabase.com)
-2. No **SQL Editor**, execute nesta ordem:
-   - `supabase/schema.sql` (tabelas + funis)
-   - `supabase/seed-prices.sql` (tabela de preços 2026 — LUX e CAC)
-3. Se já existia banco com dados de teste: `supabase/cleanup-demo-data.sql`
+2. No **SQL Editor**, veja a ordem em `supabase/SETUP-ORDEM.md`
+   - Banco **novo**: `schema.sql` → `seed-prices.sql`
+   - Banco **já existente**: `migrate-price-tables.sql` → `cleanup-demo-data.sql` (opcional) → `seed-prices.sql`
 4. Em **Storage**, crie um bucket privado chamado `documents`
 5. Copie URL e chaves em **Project Settings → API**
 

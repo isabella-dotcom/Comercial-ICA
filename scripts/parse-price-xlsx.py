@@ -37,6 +37,11 @@ def parse_sheet(df: pd.DataFrame, column_groups: list[tuple[int, int, str]]) -> 
         name = str(name).strip()
         if not name:
             continue
+        lower = name.lower()
+        if name.startswith("*") or "observação" in lower or "observacao" in lower:
+            continue
+        if lower.startswith("procedimento"):
+            continue
 
         synonyms = df.iloc[row_idx, 2]
         synonyms = None if pd.isna(synonyms) else str(synonyms).strip()

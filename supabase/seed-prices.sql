@@ -1,4 +1,5 @@
 -- Gerado a partir de Tabela de preços 2026.xlsx
+-- PRÉ-REQUISITO: execute migrate-price-tables.sql antes deste arquivo.
 delete from price_values;
 delete from price_procedures;
 delete from price_units;
@@ -680,9 +681,4 @@ on conflict (unit_key, name) do update set synonyms = excluded.synonyms, sigtap_
 -- Implante de filtro de veia cava (cac)
 insert into price_procedures (unit_key, name, synonyms, sigtap_code, tuss_code, requires_quote, sort_order)
 values ('cac', 'Implante de filtro de veia cava', null, null, null, true, 54)
-on conflict (unit_key, name) do update set synonyms = excluded.synonyms, sigtap_code = excluded.sigtap_code, tuss_code = excluded.tuss_code, requires_quote = excluded.requires_quote, sort_order = excluded.sort_order;
-
--- *Observação: Os valores dos procedimentos não incluem diárias de CTI e nem de internação (cac)
-insert into price_procedures (unit_key, name, synonyms, sigtap_code, tuss_code, requires_quote, sort_order)
-values ('cac', '*Observação: Os valores dos procedimentos não incluem diárias de CTI e nem de internação', null, null, null, true, 55)
 on conflict (unit_key, name) do update set synonyms = excluded.synonyms, sigtap_code = excluded.sigtap_code, tuss_code = excluded.tuss_code, requires_quote = excluded.requires_quote, sort_order = excluded.sort_order;
