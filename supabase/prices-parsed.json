@@ -1,0 +1,906 @@
+{
+  "lux": [
+    {
+      "name": "Aortografia",
+      "synonyms": "Cateterismo da veia aorta",
+      "sigtap": "-",
+      "tuss": "4.08.12.03-0, Angiografia por cateterismo não seletivo de grande vaso",
+      "requires_quote": false,
+      "prices": {
+        "Social": {
+          "avista": 147000,
+          "parcelado": 170000
+        },
+        "Clínicas": {
+          "avista": 181500,
+          "parcelado": 217800
+        },
+        "Particular": {
+          "avista": 281500,
+          "parcelado": 337800
+        }
+      }
+    },
+    {
+      "name": "Aortografia + Arteriografia de 1 membro",
+      "synonyms": null,
+      "sigtap": "-",
+      "tuss": null,
+      "requires_quote": false,
+      "prices": {
+        "Social": {
+          "avista": 191100,
+          "parcelado": 215000
+        },
+        "Clínicas": {
+          "avista": 220000,
+          "parcelado": 264000
+        },
+        "Particular": {
+          "avista": 320000,
+          "parcelado": 384000
+        }
+      }
+    },
+    {
+      "name": "Aortografia + Arteriografia de 2 membros",
+      "synonyms": null,
+      "sigtap": null,
+      "tuss": null,
+      "requires_quote": false,
+      "prices": {
+        "Social": {
+          "avista": 280000,
+          "parcelado": 300000
+        },
+        "Clínicas": {
+          "avista": 300000,
+          "parcelado": 380000
+        },
+        "Particular": {
+          "avista": 400000,
+          "parcelado": 480000
+        }
+      }
+    },
+    {
+      "name": "Arteriografia Hepática",
+      "synonyms": "Arteriografia Visceral",
+      "sigtap": "-",
+      "tuss": "-",
+      "requires_quote": false,
+      "prices": {
+        "Social": {
+          "avista": 161700,
+          "parcelado": 185000
+        },
+        "Clínicas": {
+          "avista": 170000,
+          "parcelado": 204000
+        },
+        "Particular": {
+          "avista": 270000,
+          "parcelado": 324000
+        }
+      }
+    },
+    {
+      "name": "Arteriografia Periférica de 1 membro",
+      "synonyms": "Angiografia Periférica de 1 Membro",
+      "sigtap": "4.08.12.04-9",
+      "tuss": "Arteriografia por cateterismo seletivo: 4.08.12.04-9",
+      "requires_quote": false,
+      "prices": {
+        "Social": {
+          "avista": 161700,
+          "parcelado": 185000
+        },
+        "Clínicas": {
+          "avista": 190000,
+          "parcelado": 228000
+        },
+        "Particular": {
+          "avista": 290000,
+          "parcelado": 348000
+        }
+      }
+    },
+    {
+      "name": "Arteriografia periférica de 2 membros",
+      "synonyms": "Angiografia Periférica de 2 Membros",
+      "sigtap": "2 x 4.08.12.04-9",
+      "tuss": "2 x Arteriografia por cateterismo seletivo: 4.08.12.04-9",
+      "requires_quote": false,
+      "prices": {
+        "Social": {
+          "avista": 191100,
+          "parcelado": 215000
+        },
+        "Clínicas": {
+          "avista": 220000,
+          "parcelado": 264000
+        },
+        "Particular": {
+          "avista": 320000,
+          "parcelado": 384000
+        }
+      }
+    },
+    {
+      "name": "Arteriografia Renal",
+      "synonyms": "Angiografia Renal",
+      "sigtap": "-",
+      "tuss": "-",
+      "requires_quote": false,
+      "prices": {
+        "Social": {
+          "avista": 161700,
+          "parcelado": 185000
+        },
+        "Clínicas": {
+          "avista": 190000,
+          "parcelado": 228000
+        },
+        "Particular": {
+          "avista": 290000,
+          "parcelado": 348000
+        }
+      }
+    },
+    {
+      "name": "Arteriografia Tronco Celiaco",
+      "synonyms": "Angiografia Tronco Celiaco",
+      "sigtap": "-",
+      "tuss": "-",
+      "requires_quote": false,
+      "prices": {
+        "Social": {
+          "avista": 161700,
+          "parcelado": 185000
+        },
+        "Clínicas": {
+          "avista": 190000,
+          "parcelado": 228000
+        },
+        "Particular": {
+          "avista": 290000,
+          "parcelado": 348000
+        }
+      }
+    },
+    {
+      "name": "Arteriografia Mesentérica",
+      "synonyms": null,
+      "sigtap": null,
+      "tuss": null,
+      "requires_quote": false,
+      "prices": {
+        "Social": {
+          "avista": 161700,
+          "parcelado": 185000
+        },
+        "Clínicas": {
+          "avista": 190000,
+          "parcelado": 228000
+        },
+        "Particular": {
+          "avista": 290000,
+          "parcelado": 348000
+        }
+      }
+    },
+    {
+      "name": "Arteriografia Cerebral",
+      "synonyms": null,
+      "sigtap": null,
+      "tuss": null,
+      "requires_quote": true,
+      "prices": {}
+    },
+    {
+      "name": "Arteriografia de Carótidas",
+      "synonyms": null,
+      "sigtap": null,
+      "tuss": null,
+      "requires_quote": true,
+      "prices": {}
+    },
+    {
+      "name": "Cateterismo Cardíaco",
+      "synonyms": "Cinecoronariografia; (ou) Cateterismo das Arterias Coronarias",
+      "sigtap": "02.11.02.001-0",
+      "tuss": "30911079 - Cateterismo cardíaco E e/ou D com cineangiocoronariografia e ventriculografia.",
+      "requires_quote": false,
+      "prices": {
+        "Social": {
+          "avista": 147000,
+          "parcelado": 170000
+        },
+        "Clínicas": {
+          "avista": 180000,
+          "parcelado": 216000
+        },
+        "Particular": {
+          "avista": 280000,
+          "parcelado": 336000
+        }
+      }
+    },
+    {
+      "name": "Cateterismo cardíaco com estudo de pontes",
+      "synonyms": "Cinecoronariografia + Estudo de pontes",
+      "sigtap": "02.11.02.001-0",
+      "tuss": "-",
+      "requires_quote": false,
+      "prices": {
+        "Social": {
+          "avista": 176400,
+          "parcelado": 190000
+        },
+        "Clínicas": {
+          "avista": 200000,
+          "parcelado": 240000
+        },
+        "Particular": {
+          "avista": 300000,
+          "parcelado": 360000
+        }
+      }
+    },
+    {
+      "name": "Cateterismo de Veia Central",
+      "synonyms": null,
+      "sigtap": "02.11.02.001-0",
+      "tuss": "-",
+      "requires_quote": false,
+      "prices": {
+        "Social": {
+          "avista": 147000,
+          "parcelado": 170000
+        },
+        "Clínicas": {
+          "avista": 181500,
+          "parcelado": 217800
+        },
+        "Particular": {
+          "avista": 281500,
+          "parcelado": 337800
+        }
+      }
+    },
+    {
+      "name": "Angioplastia sem stent",
+      "synonyms": "Angioplastia de arteria coronariana por balão",
+      "sigtap": "04.06.03.001-4",
+      "tuss": "30912032",
+      "requires_quote": false,
+      "prices": {
+        "Social": {
+          "avista": 1350000
+        },
+        "Particular": {
+          "avista": 1500000,
+          "parcelado": 1800000
+        }
+      }
+    },
+    {
+      "name": "Angioplastia com um stent",
+      "synonyms": "Angioplastia de arteria coronariana com uso de um stent",
+      "sigtap": "04.06.03.003-0",
+      "tuss": "-",
+      "requires_quote": false,
+      "prices": {
+        "Social": {
+          "avista": 1620000
+        },
+        "Particular": {
+          "avista": 1800000,
+          "parcelado": 2160000
+        }
+      }
+    },
+    {
+      "name": "Angioplastia com dois stents",
+      "synonyms": "Angioplastia de arteria coronariana com uso de dois stents",
+      "sigtap": "04.06.03.002-2",
+      "tuss": "-",
+      "requires_quote": false,
+      "prices": {
+        "Social": {
+          "avista": 1890000
+        },
+        "Particular": {
+          "avista": 2100000,
+          "parcelado": 2520000
+        }
+      }
+    },
+    {
+      "name": "Angioplastia com tres stents",
+      "synonyms": "Angioplastia de arteria coronariana com uso de tres stents",
+      "sigtap": "-",
+      "tuss": "-",
+      "requires_quote": false,
+      "prices": {
+        "Social": {
+          "avista": 2160000
+        },
+        "Particular": {
+          "avista": 2400000,
+          "parcelado": 2880000
+        }
+      }
+    },
+    {
+      "name": "Angioplastia periférica",
+      "synonyms": "Angioplastia de arteria periférica",
+      "sigtap": "07.02.04.007-0",
+      "tuss": "-",
+      "requires_quote": true,
+      "prices": {}
+    },
+    {
+      "name": "TAVI",
+      "synonyms": "Implante Transcateter de Válvula Aórtica",
+      "sigtap": null,
+      "tuss": null,
+      "requires_quote": true,
+      "prices": {}
+    },
+    {
+      "name": "Estudo eletrofisiológico (EEF)",
+      "synonyms": null,
+      "sigtap": null,
+      "tuss": null,
+      "requires_quote": true,
+      "prices": {}
+    },
+    {
+      "name": "Ablação",
+      "synonyms": null,
+      "sigtap": null,
+      "tuss": null,
+      "requires_quote": true,
+      "prices": {}
+    },
+    {
+      "name": "Crioablação",
+      "synonyms": null,
+      "sigtap": null,
+      "tuss": null,
+      "requires_quote": true,
+      "prices": {}
+    },
+    {
+      "name": "Valvuloplastia",
+      "synonyms": null,
+      "sigtap": null,
+      "tuss": null,
+      "requires_quote": true,
+      "prices": {}
+    },
+    {
+      "name": "Endoprotese",
+      "synonyms": "Correção de aneurisma",
+      "sigtap": null,
+      "tuss": null,
+      "requires_quote": true,
+      "prices": {}
+    },
+    {
+      "name": "Oclusão de shunts intracardiacos (CIA)",
+      "synonyms": "fechamento percutâneo de Comunicação Interatrial (CIA)",
+      "sigtap": null,
+      "tuss": null,
+      "requires_quote": true,
+      "prices": {}
+    },
+    {
+      "name": "Implante de filtro de veia cava",
+      "synonyms": null,
+      "sigtap": null,
+      "tuss": null,
+      "requires_quote": true,
+      "prices": {}
+    }
+  ],
+  "cac": [
+    {
+      "name": "Aortografia",
+      "synonyms": "Cateterismo da veia aorta",
+      "sigtap": "-",
+      "tuss": "4.08.12.03-0, Angiografia por cateterismo não seletivo de grande vaso",
+      "requires_quote": false,
+      "prices": {
+        "Social": {
+          "avista": 240000,
+          "parcelado": 298500
+        },
+        "Parcerias": {
+          "avista": 255000,
+          "parcelado": 313700
+        },
+        "Particular balcão": {
+          "avista": 270000,
+          "parcelado": 300000
+        },
+        "GCR": {
+          "avista": 235000,
+          "parcelado": 298500
+        }
+      }
+    },
+    {
+      "name": "Aortografia + Arteriografia de 1 membro",
+      "synonyms": null,
+      "sigtap": "-",
+      "tuss": null,
+      "requires_quote": false,
+      "prices": {}
+    },
+    {
+      "name": "Aortografia + Arteriografia de 2 membros",
+      "synonyms": null,
+      "sigtap": null,
+      "tuss": null,
+      "requires_quote": false,
+      "prices": {}
+    },
+    {
+      "name": "Arteriografia Hepática",
+      "synonyms": "Arteriografia Visceral",
+      "sigtap": "-",
+      "tuss": "-",
+      "requires_quote": false,
+      "prices": {
+        "Social": {
+          "avista": 264000,
+          "parcelado": 324800
+        },
+        "Parcerias": {
+          "avista": 280500,
+          "parcelado": 345100
+        },
+        "Particular balcão": {
+          "avista": 297000,
+          "parcelado": 330000
+        },
+        "GCR": {
+          "avista": 247500,
+          "parcelado": 314400
+        }
+      }
+    },
+    {
+      "name": "Arteriografia Periférica de 1 membro",
+      "synonyms": "Angiografia Periférica de 1 Membro",
+      "sigtap": "4.08.12.04-9",
+      "tuss": "Arteriografia por cateterismo seletivo: 4.08.12.04-9",
+      "requires_quote": false,
+      "prices": {
+        "Social": {
+          "avista": 264000,
+          "parcelado": 324800
+        },
+        "Parcerias": {
+          "avista": 280500,
+          "parcelado": 345100
+        },
+        "Particular balcão": {
+          "avista": 297000,
+          "parcelado": 330000
+        },
+        "GCR": {
+          "avista": 247500,
+          "parcelado": 314400
+        }
+      }
+    },
+    {
+      "name": "Arteriografia periférica de 2 membros",
+      "synonyms": "Angiografia Periférica de 2 Membros",
+      "sigtap": "2 x 4.08.12.04-9",
+      "tuss": "2 x Arteriografia por cateterismo seletivo: 4.08.12.04-9",
+      "requires_quote": false,
+      "prices": {
+        "Social": {
+          "avista": 312000,
+          "parcelado": 383800
+        },
+        "Parcerias": {
+          "avista": 331500,
+          "parcelado": 407800
+        },
+        "Particular balcão": {
+          "avista": 351000,
+          "parcelado": 390000
+        },
+        "GCR": {
+          "avista": 292500,
+          "parcelado": 371500
+        }
+      }
+    },
+    {
+      "name": "Arteriografia Renal",
+      "synonyms": "Angiografia Renal",
+      "sigtap": "-",
+      "tuss": "-",
+      "requires_quote": false,
+      "prices": {
+        "Social": {
+          "avista": 264000,
+          "parcelado": 324800
+        },
+        "Parcerias": {
+          "avista": 280500,
+          "parcelado": 345100
+        },
+        "Particular balcão": {
+          "avista": 297000,
+          "parcelado": 330000
+        },
+        "GCR": {
+          "avista": 247500,
+          "parcelado": 314400
+        }
+      }
+    },
+    {
+      "name": "Arteriografia Tronco Celiaco",
+      "synonyms": "Angiografia Tronco Celiaco",
+      "sigtap": "-",
+      "tuss": "-",
+      "requires_quote": false,
+      "prices": {
+        "Social": {
+          "avista": 264000,
+          "parcelado": 324800
+        },
+        "Parcerias": {
+          "avista": 280500,
+          "parcelado": 345100
+        },
+        "Particular balcão": {
+          "avista": 297000,
+          "parcelado": 330000
+        },
+        "GCR": {
+          "avista": 247500,
+          "parcelado": 314400
+        }
+      }
+    },
+    {
+      "name": "Arteriografia Mesentérica",
+      "synonyms": "Angiografia Mesetérica",
+      "sigtap": null,
+      "tuss": null,
+      "requires_quote": false,
+      "prices": {
+        "Social": {
+          "avista": 264000,
+          "parcelado": 324800
+        },
+        "Parcerias": {
+          "avista": 280500,
+          "parcelado": 345100
+        },
+        "Particular balcão": {
+          "avista": 397000,
+          "parcelado": 330000
+        },
+        "GCR": {
+          "avista": 247500,
+          "parcelado": 314400
+        }
+      }
+    },
+    {
+      "name": "Arteriografia Cerebral",
+      "synonyms": null,
+      "sigtap": null,
+      "tuss": null,
+      "requires_quote": false,
+      "prices": {
+        "Social": {
+          "avista": 312000,
+          "parcelado": 383800
+        },
+        "Parcerias": {
+          "avista": 331500,
+          "parcelado": 407800
+        },
+        "Particular balcão": {
+          "avista": 351000,
+          "parcelado": 390000
+        },
+        "GCR": {
+          "avista": 292500,
+          "parcelado": 371500
+        }
+      }
+    },
+    {
+      "name": "Arteriografia de Carótidas",
+      "synonyms": null,
+      "sigtap": null,
+      "tuss": null,
+      "requires_quote": false,
+      "prices": {
+        "Social": {
+          "avista": 288000,
+          "parcelado": 354300
+        },
+        "Parcerias": {
+          "avista": 306000,
+          "parcelado": 376400
+        },
+        "Particular balcão": {
+          "avista": 324000,
+          "parcelado": 360000
+        },
+        "GCR": {
+          "avista": 270000,
+          "parcelado": 342900
+        }
+      }
+    },
+    {
+      "name": "Cateterismo Cardíaco",
+      "synonyms": "Cinecoronariografia; (ou) Cateterismo das Arterias Coronarias",
+      "sigtap": "02.11.02.001-0",
+      "tuss": "30911079 - Cateterismo cardíaco E e/ou D com cineangiocoronariografia e ventriculografia.",
+      "requires_quote": false,
+      "prices": {
+        "Social": {
+          "avista": 240000,
+          "parcelado": 298500
+        },
+        "Parcerias": {
+          "avista": 255000,
+          "parcelado": 313700
+        },
+        "Particular balcão": {
+          "avista": 270000,
+          "parcelado": 300000
+        },
+        "GCR": {
+          "avista": 235000,
+          "parcelado": 298500
+        }
+      }
+    },
+    {
+      "name": "Cateterismo cardíaco com estudo de pontes",
+      "synonyms": "Cinecoronariografia + Estudo de pontes",
+      "sigtap": "02.11.02.001-0",
+      "tuss": "-",
+      "requires_quote": false,
+      "prices": {
+        "Social": {
+          "avista": 288000,
+          "parcelado": 354300
+        },
+        "Parcerias": {
+          "avista": 306000,
+          "parcelado": 376400
+        },
+        "Particular balcão": {
+          "avista": 324000,
+          "parcelado": 360000
+        },
+        "GCR": {
+          "avista": 270000,
+          "parcelado": 342900
+        }
+      }
+    },
+    {
+      "name": "Cateterismo de Veia Central",
+      "synonyms": null,
+      "sigtap": "02.11.02.001-0",
+      "tuss": "-",
+      "requires_quote": false,
+      "prices": {
+        "Social": {
+          "avista": 240000,
+          "parcelado": 298500
+        },
+        "Parcerias": {
+          "avista": 255000,
+          "parcelado": 313700
+        },
+        "Particular balcão": {
+          "avista": 270000,
+          "parcelado": 300000
+        },
+        "GCR": {
+          "avista": 235000,
+          "parcelado": 298500
+        }
+      }
+    },
+    {
+      "name": "Angioplastia sem stent",
+      "synonyms": "Angioplastia de arteria coronariana por balão",
+      "sigtap": "04.06.03.001-4",
+      "tuss": "30912032",
+      "requires_quote": false,
+      "prices": {
+        "Social": {
+          "avista": 1777500,
+          "parcelado": 2186400
+        },
+        "Parcerias": {
+          "avista": 1777500,
+          "parcelado": 2186400
+        },
+        "Particular balcão": {
+          "avista": 1777500,
+          "parcelado": 2186400
+        },
+        "GCR": {
+          "avista": 1777500,
+          "parcelado": 2186400
+        }
+      }
+    },
+    {
+      "name": "Angioplastia com um stent",
+      "synonyms": "Angioplastia de arteria coronariana com uso de um stent",
+      "sigtap": "04.06.03.003-0",
+      "tuss": "-",
+      "requires_quote": false,
+      "prices": {
+        "Social": {
+          "avista": 2225300,
+          "parcelado": 2737200
+        },
+        "Parcerias": {
+          "avista": 2225250,
+          "parcelado": 2737200
+        },
+        "Particular balcão": {
+          "avista": 2225250,
+          "parcelado": 2737200
+        },
+        "GCR": {
+          "avista": 2225300,
+          "parcelado": 2737200
+        }
+      }
+    },
+    {
+      "name": "Angioplastia com dois stents",
+      "synonyms": "Angioplastia de arteria coronariana com uso de dois stents",
+      "sigtap": "04.06.03.002-2",
+      "tuss": "-",
+      "requires_quote": false,
+      "prices": {
+        "Social": {
+          "avista": 2717600,
+          "parcelado": 3342700
+        },
+        "Parcerias": {
+          "avista": 2717775,
+          "parcelado": 3342700
+        },
+        "Particular balcão": {
+          "avista": 2717775,
+          "parcelado": 3342700
+        },
+        "GCR": {
+          "avista": 2717600,
+          "parcelado": 3342700
+        }
+      }
+    },
+    {
+      "name": "Angioplastia com tres stents",
+      "synonyms": "Angioplastia de arteria coronariana com uso de tres stents",
+      "sigtap": "-",
+      "tuss": "-",
+      "requires_quote": false,
+      "prices": {
+        "Social": {
+          "avista": 3259600,
+          "parcelado": 4009300
+        },
+        "Parcerias": {
+          "avista": 3259553,
+          "parcelado": 4009300
+        },
+        "Particular balcão": {
+          "avista": 3259553,
+          "parcelado": 4009300
+        },
+        "GCR": {
+          "avista": 3259600,
+          "parcelado": 4009300
+        }
+      }
+    },
+    {
+      "name": "Angioplastia periférica",
+      "synonyms": "Angioplastia de arteria periférica",
+      "sigtap": "07.02.04.007-0",
+      "tuss": "-",
+      "requires_quote": true,
+      "prices": {}
+    },
+    {
+      "name": "TAVI",
+      "synonyms": "Implante Transcateter de Válvula Aórtica",
+      "sigtap": null,
+      "tuss": null,
+      "requires_quote": true,
+      "prices": {}
+    },
+    {
+      "name": "Estudo eletrofisiológico (EEF)",
+      "synonyms": null,
+      "sigtap": null,
+      "tuss": null,
+      "requires_quote": true,
+      "prices": {}
+    },
+    {
+      "name": "Ablação",
+      "synonyms": null,
+      "sigtap": null,
+      "tuss": null,
+      "requires_quote": true,
+      "prices": {}
+    },
+    {
+      "name": "Crioablação",
+      "synonyms": null,
+      "sigtap": null,
+      "tuss": null,
+      "requires_quote": true,
+      "prices": {}
+    },
+    {
+      "name": "Valvuloplastia",
+      "synonyms": null,
+      "sigtap": null,
+      "tuss": null,
+      "requires_quote": true,
+      "prices": {}
+    },
+    {
+      "name": "Endoprotese",
+      "synonyms": "Correção de aneurisma",
+      "sigtap": null,
+      "tuss": null,
+      "requires_quote": true,
+      "prices": {}
+    },
+    {
+      "name": "Oclusão de shunts intracardiacos (CIA)",
+      "synonyms": "fechamento percutâneo de Comunicação Interatrial (CIA)",
+      "sigtap": null,
+      "tuss": null,
+      "requires_quote": true,
+      "prices": {}
+    },
+    {
+      "name": "Implante de filtro de veia cava",
+      "synonyms": null,
+      "sigtap": null,
+      "tuss": null,
+      "requires_quote": true,
+      "prices": {}
+    },
+    {
+      "name": "*Observação: Os valores dos procedimentos não incluem diárias de CTI e nem de internação",
+      "synonyms": null,
+      "sigtap": null,
+      "tuss": null,
+      "requires_quote": false,
+      "prices": {}
+    }
+  ]
+}

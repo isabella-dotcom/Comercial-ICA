@@ -133,6 +133,39 @@ create table if not exists approval_requests (
   created_at timestamptz not null default now()
 );
 
+-- Tabelas de preço 2026 (importadas da planilha oficial)
+create table if not exists price_units (
+  key text primary key,
+  name text not null,
+  location text,
+  sort_order int not null default 0
+);
+
+create table if not exists price_procedures (
+  id uuid primary key default gen_random_uuid(),
+  unit_key text not null references price_units(key) on delete cascade,
+  name text not null,
+  synonyms text,
+  sigtap_code text,
+  tuss_code text,
+  requires_quote boolean not null default false,
+  sort_order int not null default 0,
+  unique (unit_key, name)
+);
+
+create table if not exists price_values (
+  id uuid primary key default gen_random_uuid(),
+  procedure_id uuid not null references price_procedures(id) on delete cascade,
+  table_name text not null,
+  payment_mode text not null check (payment_mode in ('avista', 'parcelado')),
+  value_cents integer,
+  value_display text not null,
+  unique (procedure_id, table_name, payment_mode)
+);
+
+create index if not exists idx_price_procedures_unit on price_procedures(unit_key);
+create index if not exists idx_price_values_procedure on price_values(procedure_id);
+
 create index if not exists idx_cards_pipeline on cards(pipeline_id);
 create index if not exists idx_cards_stage on cards(stage);
 create index if not exists idx_tasks_card on tasks(card_id);

@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import {
   useCallback,
@@ -18,12 +18,14 @@ import {
   maskCpf,
 } from "@/lib/format";
 import { canApproveRequests, checkAction } from "@/lib/permissions";
+import type { PaymentMode } from "@/lib/prices";
 import {
-  calculatePrice,
-  priceData,
-  type PaymentMode,
-  type UnitKey,
-} from "@/lib/prices";
+  calculatePriceFromCatalog,
+  getProcedureNames,
+  getTableNames,
+} from "@/lib/price-catalog";
+
+type UnitKey = "lux" | "cac";
 type Section =
   | "dashboard"
   | "crm"
@@ -39,38 +41,38 @@ type Section =
 type PipelineSlug = "pacientes" | "medicos" | "parceiros";
 
 const NAV: { id: Section; label: string }[] = [
-  { id: "dashboard", label: "▣ Dashboard" },
-  { id: "crm", label: "▦ CRM" },
-  { id: "tarefas", label: "✓ Tarefas" },
-  { id: "orcamentos", label: "R$ Orçamentos" },
-  { id: "documentos", label: "▤ Documentos" },
-  { id: "emails", label: "✉ E-mails" },
-  { id: "mensagens", label: "◌ Mensagens" },
-  { id: "solicitacoes", label: "⚠ Solicitações" },
-  { id: "configuracoes", label: "⚙ Configurações" },
-  { id: "usuarios", label: "◉ Usuários" },
+  { id: "dashboard", label: "â–£ Dashboard" },
+  { id: "crm", label: "â–¦ CRM" },
+  { id: "tarefas", label: "âœ“ Tarefas" },
+  { id: "orcamentos", label: "R$ OrÃ§amentos" },
+  { id: "documentos", label: "â–¤ Documentos" },
+  { id: "emails", label: "âœ‰ E-mails" },
+  { id: "mensagens", label: "â—Œ Mensagens" },
+  { id: "solicitacoes", label: "âš  SolicitaÃ§Ãµes" },
+  { id: "configuracoes", label: "âš™ ConfiguraÃ§Ãµes" },
+  { id: "usuarios", label: "â—‰ UsuÃ¡rios" },
 ];
 
 const PAGE_META: Record<Section, { title: string; subtitle: string }> = {
   dashboard: {
     title: "Dashboard",
-    subtitle: "Visão executiva do desempenho comercial.",
+    subtitle: "VisÃ£o executiva do desempenho comercial.",
   },
-  crm: { title: "CRM", subtitle: "Funis de pacientes, médicos e parceiros." },
+  crm: { title: "CRM", subtitle: "Funis de pacientes, mÃ©dicos e parceiros." },
   tarefas: { title: "Tarefas", subtitle: "Agenda operacional e follow-ups." },
-  orcamentos: { title: "Orçamentos", subtitle: "Tabelas LUX e CAC com cálculo automático." },
+  orcamentos: { title: "OrÃ§amentos", subtitle: "Tabelas LUX e CAC com cÃ¡lculo automÃ¡tico." },
   documentos: { title: "Documentos", subtitle: "Upload e biblioteca por card." },
   emails: { title: "E-mails", subtitle: "Registro de envios vinculados ao card." },
   mensagens: { title: "Mensagens", subtitle: "Conversas por canal e card." },
   solicitacoes: {
-    title: "Solicitações",
-    subtitle: "Aprovações de ações restritas.",
+    title: "SolicitaÃ§Ãµes",
+    subtitle: "AprovaÃ§Ãµes de aÃ§Ãµes restritas.",
   },
   configuracoes: {
-    title: "Configurações",
-    subtitle: "Administração comercial e integrações.",
+    title: "ConfiguraÃ§Ãµes",
+    subtitle: "AdministraÃ§Ã£o comercial e integraÃ§Ãµes.",
   },
-  usuarios: { title: "Usuários", subtitle: "Perfis e permissões do sistema." },
+  usuarios: { title: "UsuÃ¡rios", subtitle: "Perfis e permissÃµes do sistema." },
 };
 
 const PERMISSION_BLURBS: Record<
@@ -84,7 +86,7 @@ const PERMISSION_BLURBS: Record<
       "Gerencia funis",
       "Motivos de perda/ganho",
       "Exclui leads",
-      "Aprova solicitações",
+      "Aprova solicitaÃ§Ãµes",
     ],
   },
   lana: {
@@ -93,8 +95,8 @@ const PERMISSION_BLURBS: Record<
     items: [
       "Cria cards",
       "Registra contatos",
-      "Não exclui nada",
-      "Ações restritas viram solicitação",
+      "NÃ£o exclui nada",
+      "AÃ§Ãµes restritas viram solicitaÃ§Ã£o",
     ],
   },
   ti: {
@@ -102,9 +104,9 @@ const PERMISSION_BLURBS: Record<
     tagClass: "success",
     items: [
       "Acesso total",
-      "Usuários e permissões",
+      "UsuÃ¡rios e permissÃµes",
       "Cards retroativos",
-      "Integrações",
+      "IntegraÃ§Ãµes",
     ],
   },
   ceo: {
@@ -113,8 +115,8 @@ const PERMISSION_BLURBS: Record<
     items: [
       "Apenas visualiza",
       "Dashboard",
-      "Cards e relatórios",
-      "Sem edição",
+      "Cards e relatÃ³rios",
+      "Sem ediÃ§Ã£o",
     ],
   },
 };
@@ -159,7 +161,7 @@ export function AppShell() {
   const [moveNote, setMoveNote] = useState("");
 
   const [taskForm, setTaskForm] = useState({
-    taskType: "Ligação",
+    taskType: "LigaÃ§Ã£o",
     cardId: "",
     taskDate: new Date().toISOString().slice(0, 10),
     taskTime: "",
@@ -180,8 +182,8 @@ export function AppShell() {
   const [emailForm, setEmailForm] = useState({
     cardId: "",
     recipient: "",
-    theme: "Orçamento",
-    subject: "Orçamento ICA",
+    theme: "OrÃ§amento",
+    subject: "OrÃ§amento ICA",
     body: "Olá, segue orçamento conforme solicitado.",
   });
 
@@ -201,9 +203,11 @@ export function AppShell() {
     return data.cards.filter((c) => c.pipeline_id === pipeline.id);
   }, [data, pipeline]);
 
-  const budgetTables = priceData[budgetUnit].tables;
-  const budgetProcedures = Object.keys(priceData[budgetUnit].procedures);
-  const budgetCalc = calculatePrice(
+  const priceCatalog = data?.priceCatalog ?? {};
+  const budgetTables = getTableNames(priceCatalog, budgetUnit);
+  const budgetProcedures = getProcedureNames(priceCatalog, budgetUnit);
+  const budgetCalc = calculatePriceFromCatalog(
+    priceCatalog,
     budgetUnit,
     budgetTable,
     budgetMode,
@@ -211,11 +215,12 @@ export function AppShell() {
   );
 
   useEffect(() => {
-    const tables = priceData[budgetUnit].tables;
-    const procs = Object.keys(priceData[budgetUnit].procedures);
+    if (!data?.priceCatalog) return;
+    const tables = getTableNames(data.priceCatalog, budgetUnit);
+    const procs = getProcedureNames(data.priceCatalog, budgetUnit);
     setBudgetTable(tables[0] || "");
     setBudgetProcedure(procs[0] || "");
-  }, [budgetUnit]);
+  }, [budgetUnit, data?.priceCatalog]);
 
   const loadHistory = useCallback(async (cardId: string) => {
     setHistoryLoading(true);
@@ -258,7 +263,7 @@ export function AppShell() {
       return;
     }
     if (!check.allowed) {
-      setActionMsg(check.message || "Sem permissão.");
+      setActionMsg(check.message || "Sem permissÃ£o.");
       return;
     }
     onAllowed();
@@ -280,7 +285,7 @@ export function AppShell() {
       const json = await res.json();
       if (!res.ok) throw new Error(json.error || "Falha ao enviar");
       setRequestModalOpen(false);
-      setActionMsg("Solicitação enviada ao Head de Growth.");
+      setActionMsg("SolicitaÃ§Ã£o enviada ao Head de Growth.");
       await refresh();
     } catch (e) {
       setActionMsg(e instanceof Error ? e.message : "Erro");
@@ -507,7 +512,7 @@ export function AppShell() {
           <div className="content">
             <div className="card">
               <h3>Erro ao carregar</h3>
-              <p>{error || "Dados indisponíveis"}</p>
+              <p>{error || "Dados indisponÃ­veis"}</p>
               <button type="button" className="btn primary" onClick={refresh}>
                 Tentar novamente
               </button>
@@ -531,10 +536,10 @@ export function AppShell() {
           <div className="brand-mark">ICA</div>
           <div>
             <h1>ICA Comercial</h1>
-            <small>CRM + Growth + Operação</small>
+            <small>CRM + Growth + OperaÃ§Ã£o</small>
           </div>
         </div>
-        <div className="nav-label">Navegação</div>
+        <div className="nav-label">NavegaÃ§Ã£o</div>
         {NAV.map((item) => (
           <button
             key={item.id}
@@ -546,9 +551,9 @@ export function AppShell() {
           </button>
         ))}
         <div className="sidebar-card">
-          <strong>Sessão ativa</strong>
+          <strong>SessÃ£o ativa</strong>
           <p>
-            {data.user.name} · {data.user.label}
+            {data.user.name} Â· {data.user.label}
           </p>
         </div>
       </aside>
@@ -560,7 +565,7 @@ export function AppShell() {
             <p>{meta.subtitle}</p>
           </div>
           <div className="top-actions">
-            <div className="session-pill" title="Usuário logado">
+            <div className="session-pill" title="UsuÃ¡rio logado">
               <div className="session-avatar">{initials(data.user.name)}</div>
               <div>
                 <strong>{data.user.name}</strong>
@@ -606,12 +611,12 @@ export function AppShell() {
               <div className="card metric danger">
                 <span>% quantidade de perda</span>
                 <h3>{data.dashboard.lossRate}%</h3>
-                <p>Perdas e declínios fechados.</p>
+                <p>Perdas e declÃ­nios fechados.</p>
               </div>
               <div className="card metric primary">
                 <span>Cards em andamento</span>
                 <h3>{data.dashboard.inProgress}</h3>
-                <p>Negociações ainda ativas.</p>
+                <p>NegociaÃ§Ãµes ainda ativas.</p>
               </div>
               <div className="card metric warning">
                 <span>Valor acumulado</span>
@@ -624,7 +629,7 @@ export function AppShell() {
               <div className="card-title">
                 <div>
                   <h3>Cards recentes</h3>
-                  <p>Últimas movimentações comerciais.</p>
+                  <p>Ãšltimas movimentaÃ§Ãµes comerciais.</p>
                 </div>
               </div>
               <div className="table-wrap">
@@ -669,7 +674,7 @@ export function AppShell() {
                 {(
                   [
                     ["pacientes", "Pacientes"],
-                    ["medicos", "Médicos prescritores"],
+                    ["medicos", "MÃ©dicos prescritores"],
                     ["parceiros", "Parceiros"],
                   ] as const
                 ).map(([slug, label]) => (
@@ -761,7 +766,7 @@ export function AppShell() {
                         <th>Data</th>
                         <th>Horário</th>
                         <th>Tipo</th>
-                        <th>Responsável</th>
+                        <th>ResponsÃ¡vel</th>
                         <th>Status</th>
                         <th>Card</th>
                       </tr>
@@ -815,9 +820,9 @@ export function AppShell() {
                         }))
                       }
                     >
-                      <option>Ligação</option>
-                      <option>Captação</option>
-                      <option>Reunião</option>
+                      <option>LigaÃ§Ã£o</option>
+                      <option>CaptaÃ§Ã£o</option>
+                      <option>ReuniÃ£o</option>
                     </select>
                   </div>
                   <div className="field">
@@ -882,6 +887,12 @@ export function AppShell() {
                     <p>Unidade → tabela → modalidade → procedimento.</p>
                   </div>
                 </div>
+                {budgetProcedures.length === 0 ? (
+                  <div className="notice warning" style={{ marginBottom: 12 }}>
+                    Tabela de preços não carregada. Execute{" "}
+                    <code>supabase/seed-prices.sql</code> no Supabase.
+                  </div>
+                ) : null}
                 <div className="form-grid">
                   <div className="field full">
                     <label>Card*</label>
@@ -905,8 +916,12 @@ export function AppShell() {
                         setBudgetUnit(e.target.value as UnitKey)
                       }
                     >
-                      <option value="lux">LUX BH</option>
-                      <option value="cac">CAC GV</option>
+                      <option value="lux">
+                        {priceCatalog.lux?.name ?? "LUX — Hospital Luxemburgo"}
+                      </option>
+                      <option value="cac">
+                        {priceCatalog.cac?.name ?? "CAC — Hospital Bom Samaritano"}
+                      </option>
                     </select>
                   </div>
                   <div className="field">
@@ -930,7 +945,7 @@ export function AppShell() {
                         setBudgetMode(e.target.value as PaymentMode)
                       }
                     >
-                      <option value="avista">À vista</option>
+                      <option value="avista">Ã€ vista</option>
                       <option value="parcelado">Parcelado</option>
                     </select>
                   </div>
@@ -961,13 +976,13 @@ export function AppShell() {
                     runGuarded("Criar orçamento", saveBudget)
                   }
                 >
-                  Salvar pré-montado
+                  Salvar prÃ©-montado
                 </button>
               </div>
               <div className="card">
                 <div className="card-title">
                   <div>
-                    <h3>Pré-montados</h3>
+                    <h3>PrÃ©-montados</h3>
                   </div>
                 </div>
                 <div className="table-wrap">
@@ -1042,7 +1057,7 @@ export function AppShell() {
                       onChange={(e) => setDocFolder(e.target.value)}
                     >
                       <option>Pacientes</option>
-                      <option>Médicos</option>
+                      <option>MÃ©dicos</option>
                       <option>Parceiros</option>
                     </select>
                   </div>
@@ -1069,7 +1084,7 @@ export function AppShell() {
                     <div key={d.id} className="timeline-item">
                       <strong>{d.file_name}</strong>
                       <span>
-                        {d.card?.code || "—"} ·{" "}
+                        {d.card?.code || "—"} Â·{" "}
                         {formatDateTimeBR(d.created_at)}
                       </span>
                     </div>
@@ -1087,7 +1102,7 @@ export function AppShell() {
               <div className="card">
                 <div className="form-grid">
                   <div className="field">
-                    <label>Destinatário</label>
+                    <label>DestinatÃ¡rio</label>
                     <input
                       value={emailForm.recipient}
                       onChange={(e) =>
@@ -1159,7 +1174,7 @@ export function AppShell() {
                     <div key={em.id} className="timeline-item">
                       <strong>{em.subject || em.theme}</strong>
                       <span>
-                        {em.card?.code || "—"} ·{" "}
+                        {em.card?.code || "—"} Â·{" "}
                         {formatDateTimeBR(em.created_at)}
                       </span>
                     </div>
@@ -1186,7 +1201,7 @@ export function AppShell() {
                   >
                     <strong>{c.card?.name || "Card"}</strong>
                     <span>
-                      {c.card?.code} · {c.channel || "Canal"}
+                      {c.card?.code} Â· {c.channel || "Canal"}
                     </span>
                   </button>
                 ))}
@@ -1205,7 +1220,7 @@ export function AppShell() {
                     >
                       {m.body}
                       <small>
-                        {formatDateTimeBR(m.created_at)} ·{" "}
+                        {formatDateTimeBR(m.created_at)} Â·{" "}
                         {m.sent_by?.name || m.sender_type}
                       </small>
                     </div>
@@ -1246,7 +1261,7 @@ export function AppShell() {
                       <th>Card</th>
                       <th>Justificativa</th>
                       <th>Data</th>
-                      <th>Ação</th>
+                      <th>AÃ§Ã£o</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -1299,17 +1314,17 @@ export function AppShell() {
                   <details open>
                     <summary>Pipelines e colunas</summary>
                     <div>
-                      Gerenciar Pacientes, Médicos Prescritores e Parceiros.
+                      Gerenciar Pacientes, MÃ©dicos Prescritores e Parceiros.
                     </div>
                   </details>
                   <details>
                     <summary>Motivos de perda e ganho</summary>
                     <div>
-                      Configurar campos obrigatórios por etapa.
+                      Configurar campos obrigatÃ³rios por etapa.
                     </div>
                   </details>
                   <details>
-                    <summary>Tabelas de preço</summary>
+                    <summary>Tabelas de preÃ§o</summary>
                     <div>LUX BH e CAC GV.</div>
                   </details>
                 </div>
@@ -1318,11 +1333,11 @@ export function AppShell() {
                 <div className="accordion">
                   <details open>
                     <summary>Google Agenda</summary>
-                    <div>Eventos a partir de tarefas com data e horário.</div>
+                    <div>Eventos a partir de tarefas com data e horÃ¡rio.</div>
                   </details>
                   <details>
                     <summary>Duotalk</summary>
-                    <div>Webhooks e criação automática de cards.</div>
+                    <div>Webhooks e criaÃ§Ã£o automÃ¡tica de cards.</div>
                   </details>
                 </div>
               </div>
@@ -1371,7 +1386,7 @@ export function AppShell() {
                   {selectedCard.code} — {selectedCard.name}
                 </h2>
                 <p>
-                  {selectedCard.stage} · {selectedCard.unit} ·{" "}
+                  {selectedCard.stage} Â· {selectedCard.unit} Â·{" "}
                   {selectedCard.active_label}
                 </p>
               </div>
@@ -1380,7 +1395,7 @@ export function AppShell() {
                 className="close-btn"
                 onClick={closeDrawer}
               >
-                ×
+                Ã—
               </button>
             </div>
             <div className="drawer-body">
@@ -1397,7 +1412,7 @@ export function AppShell() {
                   className={`drawer-tab${drawerTab === "historico" ? " active" : ""}`}
                   onClick={() => setDrawerTab("historico")}
                 >
-                  Histórico
+                  HistÃ³rico
                 </button>
               </div>
               <div
@@ -1443,7 +1458,7 @@ export function AppShell() {
                       runGuarded("Excluir card", () => {
                         if (
                           !confirm(
-                            "Confirma a exclusão permanente deste card?"
+                            "Confirma a exclusÃ£o permanente deste card?"
                           )
                         )
                           return;
@@ -1484,14 +1499,14 @@ export function AppShell() {
                 className={`drawer-panel${drawerTab === "historico" ? " active" : ""}`}
               >
                 {historyLoading ? (
-                  <p>Carregando histórico...</p>
+                  <p>Carregando histÃ³rico...</p>
                 ) : (
                   <div className="timeline">
                     {cardHistory.map((h) => (
                       <div key={h.id} className="timeline-item">
                         <strong>{h.action}</strong>
                         <span>
-                          {h.user?.name || "Sistema"} ·{" "}
+                          {h.user?.name || "Sistema"} Â·{" "}
                           {formatDateTimeBR(h.created_at)}
                         </span>
                       </div>
@@ -1519,7 +1534,7 @@ export function AppShell() {
           <h3>Mover card de etapa</h3>
           <div className="form-grid">
             <div className="field">
-              <label>Próxima etapa</label>
+              <label>PrÃ³xima etapa</label>
               <select
                 value={moveStage}
                 onChange={(e) => setMoveStage(e.target.value)}
@@ -1538,12 +1553,12 @@ export function AppShell() {
                 onChange={(e) => setMoveChannel(e.target.value)}
               >
                 <option>WhatsApp</option>
-                <option>Ligação</option>
+                <option>LigaÃ§Ã£o</option>
                 <option>E-mail</option>
               </select>
             </div>
             <div className="field full">
-              <label>Observação</label>
+              <label>ObservaÃ§Ã£o</label>
               <textarea
                 value={moveNote}
                 onChange={(e) => setMoveNote(e.target.value)}
@@ -1602,7 +1617,7 @@ export function AppShell() {
 
       {requestModalOpen ? (
         <div className="modal open">
-          <h3>Ação restrita</h3>
+          <h3>AÃ§Ã£o restrita</h3>
           <p>{pendingAction}</p>
           <div className="field">
             <label>Justificativa*</label>
@@ -1618,7 +1633,7 @@ export function AppShell() {
               disabled={submitting}
               onClick={submitRequest}
             >
-              Enviar solicitação
+              Enviar solicitaÃ§Ã£o
             </button>
             <button
               type="button"

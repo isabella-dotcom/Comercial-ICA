@@ -1,4 +1,5 @@
 import { createAdminClient } from "./supabase/admin";
+import { buildPriceCatalog } from "./price-catalog";
 import type { BootstrapData, Card, Pipeline } from "./types";
 import { formatCurrency } from "./format";
 
@@ -17,6 +18,9 @@ export async function loadBootstrap(userId: string): Promise<BootstrapData> {
     { data: conversations },
     { data: messages },
     { data: requests },
+    { data: priceUnits },
+    { data: priceProcedures },
+    { data: priceValues },
   ] = await Promise.all([
     supabase.from("profiles").select("id,cpf,name,role,label").eq("id", userId).single(),
     supabase.from("profiles").select("id,cpf,name,role,label").order("name"),
@@ -47,6 +51,14 @@ export async function loadBootstrap(userId: string): Promise<BootstrapData> {
       .from("approval_requests")
       .select("*")
       .order("created_at", { ascending: false }),
+    supabase.from("price_units").select("key,name,location").order("sort_order"),
+    supabase
+      .from("price_procedures")
+      .select("id,unit_key,name,requires_quote,sort_order")
+      .order("sort_order"),
+    supabase
+      .from("price_values")
+      .select("procedure_id,table_name,payment_mode,value_display"),
   ]);
 
   if (!user) throw new Error("Usuário não encontrado");
@@ -122,5 +134,10 @@ export async function loadBootstrap(userId: string): Promise<BootstrapData> {
       ...dashboard,
       totalWonValueLabel: formatCurrency(dashboard.totalWonValue),
     } as BootstrapData["dashboard"] & { totalWonValueLabel?: string },
+    priceCatalog: buildPriceCatalog(
+      priceUnits || [],
+      priceProcedures || [],
+      priceValues || []
+    ),
   };
 }

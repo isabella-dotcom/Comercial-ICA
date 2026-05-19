@@ -1,6 +1,10 @@
 -- Remove dados de demonstração já inseridos pelo seed antigo.
 -- Execute no SQL Editor do Supabase (ordem respeita FKs).
 
+delete from price_values;
+delete from price_procedures;
+delete from price_units;
+
 delete from approval_requests;
 delete from messages;
 delete from conversations;

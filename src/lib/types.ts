@@ -148,4 +148,5 @@ export interface BootstrapData {
   messages: MessageRow[];
   requests: ApprovalRequest[];
   dashboard: DashboardStats;
+  priceCatalog: import("./price-catalog").PriceCatalog;
 }

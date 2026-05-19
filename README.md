@@ -14,9 +14,21 @@ CRM comercial com autenticação por CPF + PIN, backend Supabase e deploy na Ver
 ### 1. Supabase
 
 1. Crie um projeto em [supabase.com](https://supabase.com)
-2. No **SQL Editor**, execute o arquivo `supabase/schema.sql`
-3. Em **Storage**, crie um bucket privado chamado `documents`
-4. Copie URL e chaves em **Project Settings → API**
+2. No **SQL Editor**, execute nesta ordem:
+   - `supabase/schema.sql` (tabelas + funis)
+   - `supabase/seed-prices.sql` (tabela de preços 2026 — LUX e CAC)
+3. Se já existia banco com dados de teste: `supabase/cleanup-demo-data.sql`
+4. Em **Storage**, crie um bucket privado chamado `documents`
+5. Copie URL e chaves em **Project Settings → API**
+
+**Atualizar preços a partir do Excel:** coloque o arquivo em `Downloads` e rode:
+
+```bash
+python scripts/parse-price-xlsx.py
+python scripts/generate-price-seed.py
+```
+
+Depois execute o novo `supabase/seed-prices.sql` no Supabase.
 
 ### 2. Variáveis de ambiente
 
@@ -84,5 +96,7 @@ src/
   lib/           # auth, supabase, permissões, preços
 supabase/
   schema.sql              # tabelas + funis
+  seed-prices.sql         # preços 2026 (planilha oficial)
   cleanup-demo-data.sql   # limpar demo antigo
+  scripts/                # importar Excel → SQL
 ```
