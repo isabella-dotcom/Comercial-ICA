@@ -44,16 +44,20 @@ npm run dev
 
 Acesse [http://localhost:3000](http://localhost:3000)
 
-### Usuários de teste (após o seed SQL)
+### Primeiro usuário
 
-| CPF | Nome | Perfil |
-|-----|------|--------|
-| 101.920.726-41 | Gabriel | Head de Growth |
-| 126.655.956-64 | Isabella | TI/Admin |
-| 157.618.026-35 | Lana | Encantadora |
-| 823.960.786-15 | Evaristo | CEO (somente leitura) |
+Cadastre pelo menos um usuário no Supabase (SQL Editor):
 
-No **Primeiro acesso**, cadastre um PIN de 6 dígitos (ex.: `147258`).
+```sql
+insert into profiles (cpf, name, role, label) values
+  ('01875569626', 'Seu Nome', 'ti', 'TI/Admin');
+```
+
+Perfis: `growth` | `lana` | `ti` | `ceo`
+
+Depois acesse o app → **Primeiro acesso** → cadastre o PIN de 6 dígitos.
+
+Se o banco já tinha dados de demonstração, execute `supabase/cleanup-demo-data.sql`.
 
 ## Deploy na Vercel
 
@@ -79,5 +83,6 @@ src/
   components/    # UI (AppShell, Login)
   lib/           # auth, supabase, permissões, preços
 supabase/
-  schema.sql     # schema + seed
+  schema.sql              # tabelas + funis
+  cleanup-demo-data.sql   # limpar demo antigo
 ```
